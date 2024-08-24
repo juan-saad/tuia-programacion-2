@@ -1,4 +1,6 @@
 def f(n: int, d: int) -> None:
+    """Esta funcion va a devolver la descomposicion en numeros primos del numero n
+    """
     if n > 1:
         if n % d == 0:
             print(d)
