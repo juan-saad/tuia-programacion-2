@@ -14,7 +14,7 @@ def repite_hola(n: int):
     repite_hola(n - 1)
 
 
-def concatena_hola(n: int):
+def concatena_hola(n: int) -> str:
     if n <= 0:
         return ""
     else:
