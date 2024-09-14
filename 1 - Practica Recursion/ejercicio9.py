@@ -1,3 +1,5 @@
+import timeit
+
 # Escriba una función recursiva que reciba un número positivo n y devuelva la cantidad de dígitos que tiene.
 
 def cantidad_digitos(numero: int) -> int:
