@@ -1,55 +1,78 @@
+from math import sqrt
+import random
+
+
 class Point:
-    """ representación de un punto en un plano cartesiano 2D """
+    """representación de un punto en un plano cartesiano 2D"""
+
     def __init__(self, x: float, y: float) -> None:
         self.x = x
         self.y = y
+        
+    def eucledian_distance(self, other: "Point") -> float:
+        return sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
 
     def __str__(self) -> str:
-        return '(' + str(self.x) + ', ' + str(self.y) + ')'
-    
+        return f"({self.x}, {self.y})"
+
     def __eq__(self, other) -> bool:
         if not isinstance(other, Point):
             return NotImplemented
-        return self.x == other.x and self.y == other.y
-    
-    def __add__(self, other: 'Point') -> 'Point':
+        return (self.x, self.y) == (other.x, other.y)
+
+    def __add__(self, other: "Point") -> "Point":
         return Point(self.x + other.x, self.y + other.y)
-    
+
 
 class Rectangle:
-
     def __init__(self, width: float, height: float, corner: Point) -> None:
         self.width = width
         self.height = height
         self.corner = corner
 
-    def __str__(self) -> str:
-        return '(' + str(self.width) + ', ' + str(self.height) + ', ' + str(self.corner) + ')'
-    
-    def __eq__(self, other) -> bool:
-        if not isinstance(other, Rectangle):
-            return NotImplemented
-        
-        return self.corner == other.corner and self.height == other.height and self.width == other.width
-    
-    def mover_rectangulo_pura(self, dx: int, dy: int) -> 'Rectangle':
-        return Rectangle(self.width, self.height, Point(self.corner.x + dx, self.corner.y + dy))
+    def mover_rectángulo_pura(self, dx: int, dy: int) -> "Rectangle":
+        return Rectangle(
+            self.width, self.height, Point(self.corner.x + dx, self.corner.y + dy)
+        )
 
-    def mover_rectangulo_modificadora(self, dx: int, dy: int):
+    def mover_rectángulo_modificadora(self, dx: int, dy: int) -> None:
         self.corner.x += dx
         self.corner.y += dy
 
+    def __str__(self) -> str:
+        return f"({self.width}, {self.height}, {self.corner})"
 
-punto_1 = Point(1,2)
-punto_2 = Point(2,4)
-punto_3 = Point(8,1)
-punto_4 = Point(1,6)
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Rectangle):
+            return False
 
-rect_1 = Rectangle(1,1,punto_1)
-rect_2 = Rectangle(2,1,punto_2)
+        return (self.width, self.height, self.corner) == (
+            other.width,
+            other.height,
+            other.corner,
+        )
 
-rect_nueva = rect_1.mover_rectangulo_pura(2, 3)
-print(rect_nueva)
 
-rect_2.mover_rectangulo_modificadora(2,3)
-print(rect_2)
+rectangulos = [Rectangle]
+
+# --- Crear instancias y almacenarlas ---
+for _ in range(5):  # Crear 5 instancias
+    # Generar valores aleatorios para el punto y el rectángulo
+    x = random.randint(-10, 10)
+    y = random.randint(-10, 10)
+    width = random.randint(1, 20)
+    height = random.randint(1, 20)
+
+    # Crear punto y rectángulo
+    punto = Point(x, y)
+    rectángulo = Rectangle(width, height, punto)
+
+    # Guardar en la lista
+    rectangulos.append(rectángulo)
+
+print(rectangulos[2])
+print(rectangulos[2].mover_rectángulo_pura(1, -2))
+
+print(rectangulos[3])
+rectangulos[3].mover_rectángulo_modificadora(3, -1)
+print(rectangulos[3])
