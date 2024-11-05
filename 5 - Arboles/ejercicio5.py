@@ -74,7 +74,6 @@ der3 = Tree(3,izq2,der2)
 
 root = Tree(1, izq3, der3)
 
-root.inorden()
-print('\n')
+print(root.inorden())
 print(invertir(root).inorden())
 print(sumatoria(root))
