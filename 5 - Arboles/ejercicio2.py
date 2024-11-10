@@ -43,7 +43,13 @@ class Tree:
         return False
 
     def height(self) -> int:
-        pass
+        if not self:
+            return -1
+
+        left_height = self.left.height() if self.left else -1
+        right_height = self.right.height() if self.right else -1
+
+        return 1 + max(left_height, right_height)
 
     def __str__(self) -> str:
         return str(self.cargo)
@@ -55,4 +61,4 @@ tree = Tree(
     Tree(15, Tree(12, None, Tree(20)), Tree(18)),
 )
 
-print(tree.search(30))
+print(tree.height())
