@@ -43,18 +43,14 @@ class Tree:
         return str(self.cargo)
 
 
-def invertir(arbol: "Tree") -> None:
-    if not arbol:
-        return None
+def sumatoria(arbol: "Tree") -> float:
+    if arbol is None:
+        return 0.0
 
-    if arbol.left:
-        invertir(arbol.left)
-    if arbol.right:
-        invertir(arbol.right)
+    lsuma = sumatoria(arbol.left)
+    rsuma = sumatoria(arbol.right)
 
-    arbol.left, arbol.right = arbol.right, arbol.left
-
-    return arbol
+    return arbol.cargo + lsuma + rsuma
 
 
 izq1 = Tree(-1)
@@ -68,4 +64,4 @@ der3 = Tree(3, izq2, der2)
 root = Tree(1, izq3, der3)
 
 print(root.inorden())
-print(invertir(root).inorden())
+print(sumatoria(root))
