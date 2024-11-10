@@ -25,3 +25,28 @@ class Pila:
         """Devuelve True si la pila está vacía, y False si no."""
         return self.items == []
 
+    def __str__(self) -> str:
+        return str(self.items)
+
+    def __len__(self) -> int:
+        return len(self.items)
+
+
+def validar(expresion: str) -> bool:
+    pila = Pila()
+    pares = {")": "(", "}": "{", "]": "["}
+
+    for char in expresion:
+        if char in "({[":
+            pila.push(char)
+        elif char in ")]}":
+            if not pila.isEmpty() and pila.pop() != pares[char]:
+                return False
+
+    return pila.isEmpty()
+
+
+print(validar("(x+y)/2"))  # -> True
+print(validar("[8*4(x+y)]+{2/5}"))  # -> True
+print(validar("(x+y]/2"))  # -> False
+print(validar("1+)2(+3"))  # -> False
