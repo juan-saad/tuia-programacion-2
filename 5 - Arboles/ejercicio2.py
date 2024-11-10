@@ -31,7 +31,16 @@ class Tree:
         return (min_val, max_val)
 
     def search(self, elem: Any) -> bool:
-        pass
+        if self.cargo == elem:
+            return True
+
+        if self.left and self.left.search(elem):
+            return True
+
+        if self.right and self.right.search(elem):
+            return True
+
+        return False
 
     def height(self) -> int:
         pass
@@ -40,6 +49,10 @@ class Tree:
         return str(self.cargo)
 
 
-tree = Tree(10, Tree(5, Tree(2), Tree(7, Tree(30, None, Tree(1, None, Tree(100))))), Tree(15, Tree(12, None, Tree(20)), Tree(18)))
+tree = Tree(
+    10,
+    Tree(5, Tree(2), Tree(7, Tree(30, None, Tree(1, None, Tree(100))))),
+    Tree(15, Tree(12, None, Tree(20)), Tree(18)),
+)
 
-print(tree.min_max())
+print(tree.search(30))
